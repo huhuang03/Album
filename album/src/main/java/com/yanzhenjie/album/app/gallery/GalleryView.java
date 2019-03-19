@@ -110,6 +110,12 @@ public class GalleryView<Data> extends Contract.GalleryView<Data> implements Vie
             @Override
             protected void loadPreview(ImageView imageView, Data item, int position) {
                 if (item instanceof String) {
+                    String itemS = (String)item;
+                    if (itemS.endsWith(".mp4")) {
+
+                    } else {
+
+                    }
                     Album.getAlbumConfig().getAlbumLoader().load(imageView, (String)item);
                 } else if (item instanceof AlbumFile) {
                     Album.getAlbumConfig().getAlbumLoader().load(imageView, (AlbumFile)item);
