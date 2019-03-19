@@ -1,4 +1,5 @@
 apply plugin: rootProject.ext.plugins.library
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -18,6 +19,34 @@ dependencies {
     implementation rootProject.ext.dependencies.recyclerView
     implementation rootProject.ext.dependencies.cardView
     api rootProject.ext.dependencies.mediaScanner
+}
+
+android {
+    lintOptions {
+        abortOnError false
+    }
+}
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
+
+publishing {
+    publications {
+        bar(MavenPublication) {
+            groupId 'com.yanzhenjie'
+            artifactId 'album-with-video'
+            version '2.1.3'
+            artifact(sourceJar)
+            artifact("$buildDir/outputs/aar/album-release.aar")
+        }
+    }
+    repositories {
+        maven {
+            url "/Users/th/.m2/repository"
+        }
+    }
 }
 
 apply from: 'https://raw.githubusercontent.com/yanzhenjie/bintray/master/maven.gradle'
