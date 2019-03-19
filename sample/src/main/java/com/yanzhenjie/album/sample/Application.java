@@ -15,6 +15,8 @@
  */
 package com.yanzhenjie.album.sample;
 
+import android.util.Log;
+
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumConfig;
 
@@ -40,6 +42,13 @@ public class Application extends android.app.Application {
                     .build()
             );
         }
+
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                Log.i("tonghu", Log.getStackTraceString(e));
+            }
+        });
     }
 
     public static Application getInstance() {

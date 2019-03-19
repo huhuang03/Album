@@ -81,7 +81,7 @@ public abstract class PreviewAdapter<T> extends PagerAdapter
         loadPreview(imageView, mPreviewList.get(position), position);
         container.addView(imageView);
 
-        final PhotoViewAttacher attacher = new PhotoViewAttacher(imageView);
+        final PhotoViewAttacher attacher = new PhotoViewAttacher(imageView.getImageView());
         if (mItemClickListener != null) {
             attacher.setOnViewTapListener(this);
         }
@@ -109,5 +109,5 @@ public abstract class PreviewAdapter<T> extends PagerAdapter
         return true;
     }
 
-    protected abstract void loadPreview(ImageView imageView, T item, int position);
+    protected abstract void loadPreview(AttacherImageView imageView, T item, int position);
 }

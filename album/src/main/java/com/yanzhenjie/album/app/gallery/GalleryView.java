@@ -24,7 +24,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,6 +33,7 @@ import com.yanzhenjie.album.R;
 import com.yanzhenjie.album.api.widget.Widget;
 import com.yanzhenjie.album.app.Contract;
 import com.yanzhenjie.album.util.SystemBar;
+import com.yanzhenjie.album.widget.photoview.AttacherImageView;
 
 import java.util.List;
 
@@ -108,17 +108,17 @@ public class GalleryView<Data> extends Contract.GalleryView<Data> implements Vie
     public void bindData(List<Data> dataList) {
         PreviewAdapter<Data> adapter = new PreviewAdapter<Data>(getContext(), dataList) {
             @Override
-            protected void loadPreview(ImageView imageView, Data item, int position) {
+            protected void loadPreview(AttacherImageView imageView, Data item, int position) {
                 if (item instanceof String) {
                     String itemS = (String)item;
                     if (itemS.endsWith(".mp4")) {
-
+                        imageView.setIsVideo(true, itemS);
                     } else {
-
+                        imageView.setIsVideo(false, "");
                     }
-                    Album.getAlbumConfig().getAlbumLoader().load(imageView, (String)item);
+                    Album.getAlbumConfig().getAlbumLoader().load(imageView.getImageView(), (String)item);
                 } else if (item instanceof AlbumFile) {
-                    Album.getAlbumConfig().getAlbumLoader().load(imageView, (AlbumFile)item);
+                    Album.getAlbumConfig().getAlbumLoader().load(imageView.getImageView(), (AlbumFile)item);
                 }
             }
         };
